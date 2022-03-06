@@ -1,0 +1,19 @@
+browser:
+  localExecution: true
+  type: chrome
+browser_stack:
+  user: adipirlea1
+  key: 4ZUQMs7MAexxJQDpsHYY
+  browser: Chrome
+  browserVersion: latest
+  os: Windows
+  osVersion: 10
+
+user:
+  username: rautacio_s@yahoo.com
+  password: testAutomation123$
+
+url:
+  uiBaseurl: http://automationpractice.com
+
+
