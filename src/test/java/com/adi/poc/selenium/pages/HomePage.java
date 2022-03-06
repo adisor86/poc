@@ -35,4 +35,12 @@ public class HomePage {
     public void submitProductSearch() {
         seleniumActions.clickOnElement(submitProductSearchButtonLocator);
     }
+
+    public void clickOnMainFilterOption(String option) {
+        seleniumActions.clickOnElement(retrieveFilterMainOption(option));
+    }
+
+    private By retrieveFilterMainOption(String option) {
+        return By.xpath("//div[@class='cat-title']/following-sibling::ul//a[@title='" + option + "']");
+    }
 }

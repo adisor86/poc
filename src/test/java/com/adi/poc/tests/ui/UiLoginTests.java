@@ -6,6 +6,7 @@ import com.adi.poc.selenium.pages.LoginPage;
 import com.adi.poc.selenium.pages.ValidationComponentPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,7 +35,6 @@ public class UiLoginTests {
     @Test
     void performLoginWithValidCredentialsTest() {
         System.out.println("Test about to validate login functionality while using valid credentials.");
-        seleniumActions.navigateTo(url);
         homePage.navigateToLoginScreen();
         loginPage.enterUsername(username)
                 .enterPassword(password)
@@ -45,7 +45,6 @@ public class UiLoginTests {
     @Test
     void performLoginWithInvalidUsernameTest() {
         System.out.println("Test about to validate login functionality while using invalid username.");
-        seleniumActions.navigateTo(url);
         homePage.navigateToLoginScreen();
         loginPage.enterUsername("invalid@email")
                 .enterPassword(password)
@@ -57,13 +56,17 @@ public class UiLoginTests {
     @Test
     void performLoginWithInvalidPasswordTest() {
         System.out.println("Test about to validate login functionality while using invalid password.");
-        seleniumActions.navigateTo(url);
         homePage.navigateToLoginScreen();
         loginPage.enterUsername(username)
                 .enterPassword(password.concat("test"))
                 .clickSignInButton();
         Assertions.assertEquals("There is 1 error\nAuthentication failed.", validationPage.retrieveTextFromValidationAlert());
         Assertions.assertTrue(homePage.signInOptionIsDisplayed(), "Login is performed though invalid password was provided.");
+    }
+
+    @BeforeEach
+    private void setup() {
+        seleniumActions.navigateTo(url);
     }
 
     @AfterEach
