@@ -3,9 +3,7 @@ package com.adi.poc.tests.ui;
 import com.adi.poc.selenium.SeleniumActions;
 import com.adi.poc.selenium.pages.HomePage;
 import com.adi.poc.selenium.pages.SearchResultPage;
-import com.adi.poc.selenium.pages.filters.CategoryFilterComponent;
-import com.adi.poc.selenium.pages.filters.CatalogFilterComponent;
-import com.adi.poc.selenium.pages.filters.enums.MainFilter;
+import com.adi.poc.selenium.pages.filters.FilterComponentPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,9 +19,7 @@ public class UiSearchProductsTests {
     @Autowired
     private HomePage homePage;
     @Autowired
-    CategoryFilterComponent categoryFilterComponent;
-    @Autowired
-    CatalogFilterComponent catalogFilterComponent;
+    FilterComponentPage filterComponentPage;
     @Autowired
     private SearchResultPage searchResultPage;
 
@@ -53,10 +49,9 @@ public class UiSearchProductsTests {
     @Test
     void filterProductsWhileUsingMoreFilterCriteria() {
         System.out.println("Test about to validate filter functionality when more filters are used and at least one product is retruned");
-        homePage.clickOnMainFilterOption(MainFilter.WOMEN.label);
-        categoryFilterComponent.selectTopsFilter()
-                .selectTopsTShirtFilter();
-        catalogFilterComponent.selectSizeLFilter()
+        homePage.clickOnWomenMainFilterOption();
+        filterComponentPage.selectTopsFilter()
+                .selectSizeLFilter()
                 .selectSizeMFilter();
         Assertions.assertTrue(searchResultPage.retrieveNumberOfProductsFound().size() > 0, "Search list is empty, though it should have been at least one product being returned.");
     }

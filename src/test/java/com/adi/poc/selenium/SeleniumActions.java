@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static org.awaitility.Awaitility.await;
 
 @Service("SeleniumActions")
 public class SeleniumActions {
@@ -26,10 +29,16 @@ public class SeleniumActions {
         System.out.println("Navigated to :" + url);
     }
 
-    public void clickOnElement(By by) {
+    public void clickOnWebElement(By by) {
         scrollToElementJs(by);
         new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(by));
         getWebElement(by).click();
+    }
+
+    public void clickOnWebElement(WebElement el) {
+        scrollToElementJs(el);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(el));
+        el.click();
     }
 
     public void fillText(By by, String text) {

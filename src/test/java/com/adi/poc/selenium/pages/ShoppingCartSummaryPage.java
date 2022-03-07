@@ -18,7 +18,8 @@ public class ShoppingCartSummaryPage {
 
     public void removeItemFromCartSummaryFromGivenPosition(int position) {
         List<WebElement> deleteIcons = seleniumActions.getWebElements(deleteIconLocator);
-        deleteIcons.get(position).click();
+        System.out.println("About to delete product item");
+        seleniumActions.clickOnWebElement(deleteIcons.get(position));
     }
 
     public List<WebElement> retrieveExistingItemsFromCartSummary() {

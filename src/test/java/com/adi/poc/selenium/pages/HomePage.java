@@ -15,9 +15,10 @@ public class HomePage {
     private By searchProductInputLocator = By.id("search_query_top");
     private By submitProductSearchButtonLocator = By.name("submit_search");
     private By cartLocator = By.xpath("//div[@class='shopping_cart']//a[@title='View my shopping cart']");
+    private By womenMainFilter = By.xpath("//a[@title='Women']");
 
     public void navigateToLoginScreen() {
-        seleniumActions.clickOnElement(signInLocator);
+        seleniumActions.clickOnWebElement(signInLocator);
     }
 
     public boolean signOutOptionIsDisplayed() {
@@ -34,18 +35,15 @@ public class HomePage {
     }
 
     public void submitProductSearch() {
-        seleniumActions.clickOnElement(submitProductSearchButtonLocator);
+        seleniumActions.clickOnWebElement(submitProductSearchButtonLocator);
     }
 
-    public void clickOnMainFilterOption(String option) {
-        seleniumActions.clickOnElement(retrieveFilterMainOption(option));
+    public void clickOnWomenMainFilterOption() {
+        seleniumActions.clickOnWebElement(womenMainFilter);
     }
 
     public void openShoppingCartSummary() {
-        seleniumActions.clickOnElement(cartLocator);
+        seleniumActions.clickOnWebElement(cartLocator);
     }
 
-    private By retrieveFilterMainOption(String option) {
-        return By.xpath("//div[@class='cat-title']/following-sibling::ul//a[@title='" + option + "']");
-    }
 }

@@ -1,6 +1,6 @@
 package com.adi.poc.selenium.pages.filters.enums;
 
-public enum CategoryFilter {
+public enum CategoriesFilter {
     TOPS("Tops"),
     DRESSES("Dresses"),
     T_SHIRTS("T-shirts"),
@@ -11,7 +11,7 @@ public enum CategoryFilter {
 
     public final String label;
 
-    CategoryFilter(String label) {
+    CategoriesFilter(String label) {
         this.label = label;
     }
 }

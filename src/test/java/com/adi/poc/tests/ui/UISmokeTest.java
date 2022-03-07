@@ -2,15 +2,11 @@ package com.adi.poc.tests.ui;
 
 import com.adi.poc.selenium.SeleniumActions;
 import com.adi.poc.selenium.pages.*;
-import com.adi.poc.selenium.pages.filters.CatalogFilterComponent;
-import com.adi.poc.selenium.pages.filters.CategoryFilterComponent;
-import com.adi.poc.selenium.pages.filters.enums.MainFilter;
+import com.adi.poc.selenium.pages.filters.FilterComponentPage;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.AfterTestClass;
-import org.springframework.test.context.event.annotation.BeforeTestClass;
 
 @SpringBootTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -22,9 +18,7 @@ public class UISmokeTest {
     @Autowired
     HomePage homePage;
     @Autowired
-    CategoryFilterComponent categoryFilterComponent;
-    @Autowired
-    CatalogFilterComponent catalogFilterComponent;
+    FilterComponentPage filterComponentPage;
     @Autowired
     SuccessfulShoppingCartConfirmationPage cartConfirmationPage;
     @Autowired
@@ -47,12 +41,11 @@ public class UISmokeTest {
     public void addItemToCart() {
         System.out.println("Smoke - validate product is successfully added to cart.");
         loginPage.doLogin(username, password);
-        homePage.clickOnMainFilterOption(MainFilter.WOMEN.label);
-        categoryFilterComponent.selectTopsFilter()
-                .selectTopsTShirtFilter();
-        catalogFilterComponent.selectSizeLFilter()
+        homePage.clickOnWomenMainFilterOption();
+        filterComponentPage.selectTopsFilter()
+                .selectSizeLFilter()
                 .selectSizeMFilter();
-        searchResultPage.addProductToCart()
+        searchResultPage.addFirstProductItemToCart()
                 .selectProceedToCheckoutOption();
         Assertions.assertEquals(1, shoppingCartSummaryPage.retrieveExistingItemsFromCartSummary().size(), "Actual number of items in cart is 0 or more than 1.");
     }
@@ -60,27 +53,18 @@ public class UISmokeTest {
     @Test
     @Order(2)
     public void removeExistingItemFromCart() {
-        System.out.println("Smoke - validate product is successfully removed from cart.");
+        System.out.println("Smoke - validate product is added & later removed successfully from cart.");
         loginPage.doLogin(username, password);
-        homePage.clickOnMainFilterOption(MainFilter.WOMEN.label);
-        categoryFilterComponent.selectTopsFilter()
-                .selectTopsTShirtFilter();
-        catalogFilterComponent.selectSizeLFilter()
-                .selectSizeMFilter();
-        searchResultPage.addProductToCart()
-                .selectContinueShoppingOption();
-        homePage.clickOnMainFilterOption(MainFilter.DRESSES.label);
-        categoryFilterComponent.selectDressesEveningDressesFilter();
-        catalogFilterComponent.selectSizeLFilter()
-                .selectColorBeigeFilter();
-        searchResultPage.addProductToCart();
-        searchResultPage.addProductToCart().selectContinueShoppingOption();
+        homePage.clickOnWomenMainFilterOption();
+        filterComponentPage.selectDressesFilter()
+                .selectSizeLFilter()
+                .selectColorWhiteFilter();
+        searchResultPage.addFirstProductItemToCart().
+                selectContinueShoppingOption();
         homePage.openShoppingCartSummary();
-        Assertions.assertEquals(2, shoppingCartSummaryPage.retrieveExistingItemsFromCartSummary().size(), "Actual number of items does not match expected value");
-        shoppingCartSummaryPage.removeItemFromCartSummaryFromGivenPosition(1);
         Assertions.assertEquals(1, shoppingCartSummaryPage.retrieveExistingItemsFromCartSummary().size(), "Actual number of items does not match expected value");
         shoppingCartSummaryPage.removeItemFromCartSummaryFromGivenPosition(0);
-        Assertions.assertEquals("Your shopping cart is empty.", validationComponentPage.retrieveTextFromEmptySearchResultWarning());
+        Assertions.assertEquals("Your shopping cart is empty.", validationComponentPage.retrieveEmptyCartWarningMessage());
     }
 
 

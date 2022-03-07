@@ -27,7 +27,7 @@ public class LoginPage {
     }
 
     public void clickSignInButton() {
-        seleniumActions.clickOnElement(signInButtonLocator);
+        seleniumActions.clickOnWebElement(signInButtonLocator);
     }
 
 

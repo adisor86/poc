@@ -18,12 +18,12 @@ public class SuccessfulShoppingCartConfirmationPage {
     private By proceedToCheckoutButtonLocator = By.xpath("//div[@class='button-container']//*[@title='Proceed to checkout']");
 
     public HomePage selectContinueShoppingOption() {
-        seleniumActions.clickOnElement(continueShoppingButtonLocator);
+        seleniumActions.clickOnWebElement(continueShoppingButtonLocator);
         return homePage;
     }
 
     public ShoppingCartSummaryPage selectProceedToCheckoutOption() {
-        seleniumActions.clickOnElement(proceedToCheckoutButtonLocator);
+        seleniumActions.clickOnWebElement(proceedToCheckoutButtonLocator);
         return shoppingCartSummaryPage;
     }
 }

@@ -22,19 +22,19 @@ public class SearchResultPage {
     private By moreButton = By.xpath("//div[@class='button-container']//*[@title='View']");
 
     public List<WebElement> retrieveNumberOfProductsFound() {
-        return seleniumActions.getDriver().findElements(returnedListOfProducts);
+        return seleniumActions.getWebElements(returnedListOfProducts);
     }
 
     public String retrieveEmptyProductSearchMessage() {
         return seleniumActions.getTextFromElement(noResultFoundMessageLocator);
     }
 
-    public SuccessfulShoppingCartConfirmationPage addProductToCart() {
+    public SuccessfulShoppingCartConfirmationPage addFirstProductItemToCart() {
         seleniumActions.mouseHoverOverElementAndClickOption(seleniumActions.getWebElements(returnedListOfProducts).get(0), seleniumActions.getWebElement(addToCartButton));
         return shoppingCartConfirmationPage;
     }
 
     public void viewMore() {
-        seleniumActions.clickOnElement(moreButton);
+        seleniumActions.clickOnWebElement(moreButton);
     }
 }
