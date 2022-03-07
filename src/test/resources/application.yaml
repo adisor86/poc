@@ -12,8 +12,8 @@ browser_stack:
 user:
   username: rautacio_s@yahoo.com
   password: testAutomation123$
+  bearer: 19a64ef0873c1e3243ab79312216da3b6bf0262c11f7e40991c61a3849edd1bc
 
 url:
   uiBaseurl: http://automationpractice.com
-
-
+  apiBaseUrl: https://gorest.co.in/public/v2
