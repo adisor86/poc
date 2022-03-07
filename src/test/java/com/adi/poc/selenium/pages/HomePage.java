@@ -14,6 +14,7 @@ public class HomePage {
     private By signOutLocator = By.className("logout");
     private By searchProductInputLocator = By.id("search_query_top");
     private By submitProductSearchButtonLocator = By.name("submit_search");
+    private By cartLocator = By.xpath("//div[@class='shopping_cart']//a[@title='View my shopping cart']");
 
     public void navigateToLoginScreen() {
         seleniumActions.clickOnElement(signInLocator);
@@ -38,6 +39,10 @@ public class HomePage {
 
     public void clickOnMainFilterOption(String option) {
         seleniumActions.clickOnElement(retrieveFilterMainOption(option));
+    }
+
+    public void openShoppingCartSummary() {
+        seleniumActions.clickOnElement(cartLocator);
     }
 
     private By retrieveFilterMainOption(String option) {

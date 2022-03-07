@@ -4,7 +4,7 @@ import com.adi.poc.selenium.SeleniumActions;
 import com.adi.poc.selenium.pages.HomePage;
 import com.adi.poc.selenium.pages.SearchResultPage;
 import com.adi.poc.selenium.pages.filters.CategoryFilterComponent;
-import com.adi.poc.selenium.pages.filters.SizeFilterComponent;
+import com.adi.poc.selenium.pages.filters.CatalogFilterComponent;
 import com.adi.poc.selenium.pages.filters.enums.MainFilter;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +23,7 @@ public class UiSearchProductsTests {
     @Autowired
     CategoryFilterComponent categoryFilterComponent;
     @Autowired
-    SizeFilterComponent sizeFilterComponent;
+    CatalogFilterComponent catalogFilterComponent;
     @Autowired
     private SearchResultPage searchResultPage;
 
@@ -56,7 +56,7 @@ public class UiSearchProductsTests {
         homePage.clickOnMainFilterOption(MainFilter.WOMEN.label);
         categoryFilterComponent.selectTopsFilter()
                 .selectTopsTShirtFilter();
-        sizeFilterComponent.selectSizeLFilter()
+        catalogFilterComponent.selectSizeLFilter()
                 .selectSizeMFilter();
         Assertions.assertTrue(searchResultPage.retrieveNumberOfProductsFound().size() > 0, "Search list is empty, though it should have been at least one product being returned.");
     }

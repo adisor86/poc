@@ -13,9 +13,13 @@ import java.util.List;
 public class SearchResultPage {
     @Autowired
     SeleniumActions seleniumActions;
+    @Autowired
+    SuccessfulShoppingCartConfirmationPage shoppingCartConfirmationPage;
 
     private By noResultFoundMessageLocator = By.cssSelector("*[class ='alert alert-warning']");
     private By returnedListOfProducts = By.xpath("//ul[@class='product_list grid row']//div[@class='product-container']");
+    private By addToCartButton = By.xpath("//div[@class='button-container']//*[@title='Add to cart']");
+    private By moreButton = By.xpath("//div[@class='button-container']//*[@title='View']");
 
     public List<WebElement> retrieveNumberOfProductsFound() {
         return seleniumActions.getDriver().findElements(returnedListOfProducts);
@@ -23,5 +27,14 @@ public class SearchResultPage {
 
     public String retrieveEmptyProductSearchMessage() {
         return seleniumActions.getTextFromElement(noResultFoundMessageLocator);
+    }
+
+    public SuccessfulShoppingCartConfirmationPage addProductToCart() {
+        seleniumActions.mouseHoverOverElementAndClickOption(seleniumActions.getWebElements(returnedListOfProducts).get(0), seleniumActions.getWebElement(addToCartButton));
+        return shoppingCartConfirmationPage;
+    }
+
+    public void viewMore() {
+        seleniumActions.clickOnElement(moreButton);
     }
 }
