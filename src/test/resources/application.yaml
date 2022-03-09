@@ -16,4 +16,4 @@ user:
 
 url:
   uiBaseurl: http://automationpractice.com
-  apiBaseUrl: https://gorest.co.in/public/v2
+  apiUrl: https://gorest.co.in/public/v2/users

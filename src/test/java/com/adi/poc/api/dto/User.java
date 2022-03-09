@@ -1,13 +1,16 @@
 package com.adi.poc.api.dto;
 
 import lombok.Builder;
-import lombok.Data;
-import org.springframework.stereotype.Controller;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
 @Builder
-public class UserDto {
+@Getter
+@Setter
+public class User {
+    //private int id;
     private String name;
     private String email;
     private String gender;
+    private String status;
 }

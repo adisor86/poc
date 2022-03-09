@@ -8,24 +8,46 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 public class RestApiClient {
-    public <T> Response doPostWithBody(int status, String url, T body, String bearer) {
+    public Response doPostRequestWithBody(int status, String url, Object body, String bearer) {
         Response response;
         String bodyParam = new Gson().toJson(body);
         RequestSpecification requestSpecification = buildRequestWithBody(bodyParam);
         requestSpecification.header("Authorization", "Bearer " + bearer);
-        response = requestSpecification.post(url);
+        response = requestSpecification.log().all().post(url);
         validateResponseStatus(status, response);
         return response;
     }
 
-    public Response getWithPathParameter(int status, String url, String bearer) {
+    public Response doPutRequestWithBody(int status, String url, Object body, String bearer) {
+        Response response;
+        String bodyParam = new Gson().toJson(body);
+        RequestSpecification requestSpecification = buildRequestWithBody(bodyParam);
+        requestSpecification.header("Authorization", "Bearer " + bearer);
+        response = requestSpecification.log().all().put(url);
+        validateResponseStatus(status, response);
+        return response;
+    }
+
+    public Response doGetRequest(int status, String url, String bearer) {
         Response response;
         RequestSpecification requestSpecification = RestAssured.given()
                 .accept(ContentType.JSON)
                 .header("Authorization", "Bearer " + bearer);
-        response = requestSpecification.get(url);
+        response = requestSpecification.log().all().get(url);
+        validateResponseStatus(status, response);
+        return response;
+    }
+
+    public Response doDeleteRequest(int status, String url, String bearer) {
+        Response response;
+        RequestSpecification requestSpecification = RestAssured.given()
+                .accept(ContentType.JSON)
+                .header("Authorization", "Bearer " + bearer);
+        response = requestSpecification.delete(url);
         validateResponseStatus(status, response);
         return response;
     }
