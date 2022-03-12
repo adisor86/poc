@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 @Suite
 @SelectClasses({
-        UiLoginTests.class,
-        UiSearchProductsTests.class,
+//        UiLoginTests.class,
+//        UiSearchProductsTests.class,
         UISmokeTest.class,
         ApiTests.class
 })

@@ -24,7 +24,7 @@ public class ApiTests {
     private String userId;
     private Map<String, String> pathParams;
     private final String name = "Adi Test";
-    private final String email = "aditest@panda.com";
+    private final String email = "aditest@bitpanda.com";
     private final String gender = "male";
     private final String status = "active";
     private User user;
@@ -52,7 +52,7 @@ public class ApiTests {
                 .gender("gender")
                 .status(status).build();
         //Note test will fail, due to the wrong API implementation; when invalid body is provided we should receive 400 and not 422
-        Response response = restApiClient.doPostRequestWithBody(400, apiUrl, userBody, bearer);
+        restApiClient.doPostRequestWithBody(400, apiUrl, userBody, bearer);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ApiTests {
                 .gender(gender)
                 .status(status).build();
         //Note: i left test as failed due to the wrong implementation done at APi layer; for this situation, my expectation would be to receive 405 instead of 404 status code
-        Response response = restApiClient.doPostRequestWithBody(405, apiUrl.concat("/").concat("11021"), userBody, bearer);
+        restApiClient.doPostRequestWithBody(405, apiUrl.concat("/").concat("11021"), userBody, bearer);
     }
 
     @Test

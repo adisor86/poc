@@ -26,7 +26,7 @@ public class UiSearchProductsTests {
     @Value("${url.uiBaseurl}")
     private String url;
 
-    private final String NO_RESULTS_SEARCH_CRITERIA = "pandatestnoresult";
+    private final String NO_RESULTS_SEARCH_CRITERIA = "bitpandatestnoresult";
     private final String MATCHING_RESULTS_CRITERIA = "printed";
     private final String noResultsMessage = "No results were found for your search \"".concat(NO_RESULTS_SEARCH_CRITERIA).concat("\"");
 

@@ -1,5 +1,5 @@
 browser:
-  localExecution: true
+  localExecution: false
   type: chrome
 browser_stack:
   user: adipirlea1
