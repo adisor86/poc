@@ -47,7 +47,7 @@ public class RestApiClient {
         RequestSpecification requestSpecification = RestAssured.given()
                 .accept(ContentType.JSON)
                 .header("Authorization", "Bearer " + bearer);
-        response = requestSpecification.delete(url);
+        response = requestSpecification.log().all().delete(url);
         validateResponseStatus(status, response);
         return response;
     }

@@ -6,6 +6,7 @@ The proposed solution is a Spring Boot application; as it can be seen from the *
 * Selenium 4.1.2 - for UI scenarios
 * Rest Assured 4.5.1 - for API scenarios
 * JUnit 5.8.2 - the actual testing framework
+* Lombok plugin installed in your IDEA (though this is not mandatory, all the tests will get executed successfully even without it; not having this plugin installed it will cause a compile error in ApiTests.java due to the fact that `builder()` method will not be recognized)
 
 Also, for performance test there are presented two options:
  * option 1 - implementation in [JMeter](https://jmeter.apache.org/)
@@ -18,7 +19,7 @@ As stated above, for the UI tests I chose the Selenium 4 to interact with the br
 Main packages used for the UI tests are the following:
 * **selenium.driver package** - I used Factory design pattern for driver instantiation in order to provide an easy ability to run it for multiple browsers and multiple platforms
 * **selenium.pages** - Page Object Model classes
-* **SeleniumActions.class** - wrapper over Selenium actions in trying to adapt them in the given context, but also to have a decoupling between tests and the Selenium library
+* **SeleniumActions.java** - wrapper over Selenium actions in trying to adapt them in the given context, but also to have a decoupling between tests and the Selenium library
 * **tests.ui** - Junit tests for the implemented UI scenarios - for the given POC I included 3 suites - Login, Search & Smoke which includes two end-to-end scenarios 
 
 When it comes the application under test, I used [http://automationpractice.com](http://automationpractice.com/index.php). 
@@ -26,7 +27,7 @@ When it comes the application under test, I used [http://automationpractice.com]
 ##B2. API automation
 For the API scenarios I used Rest Assured 4.5. Main packages used for the API tests are the following:
 * **api.dto** - it contains the API object models - e.g. User model
-* **RestApiClient.class** - wrapper over RestAssured where I implemented the HTTP methods while adding all the needed customization;
+* **RestApiClient.java** - wrapper over RestAssured where I implemented the HTTP methods while adding all the needed customization;
 * **tests.api** - test class containing all API scenarios in where I validate basic CRUD operations on User resource
 
 When it comes the application under test, I used [https://gorest.co.in/](https://gorest.co.in/).
