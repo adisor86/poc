@@ -102,11 +102,28 @@ Considering this is a POC, the execution will be done from the local machine; be
 * open the terminal and navigate to the location where the artillery `BitpandaArtilleryPerformance.yml` script is saved (..\src\test\java\com\adi\poc\tests\performance\artillery)
 * in order to start execution use the following command: `artillery run --output results.json BitpandaArtilleryPerformance.yml` -> this will run test and store results in 'results.json' file in the current folder
 * to generate the html results report use the following command: `artillery report results.json` -> it will generate a HTML report to the current folder
+* firstName & LastName fields are duplicated  - part fo Personal Information section & Your Address section
+* empty spaces are allowed for input fields, even for password
 
 #D. Test Results
 ## D1. UI automation results
-All automated tests **should pass**, though while implementing them I saw quite some issues within the application; I will list below a few aof them and then provide also an example of bug logging:
--TBD
+All automated tests **should pass**, though while implementing them I saw quite some issues within the application; I will list below a few of them but please be aware that I did not spend time to actually test the application, but rather I scanned it for 15-20 mins:
+* Create account issues:
+  * email validation is not done correctly - invalid email address can be used - e.g. adi.def@mail.c
+  * inconsistent validation messages displayed for invalid email addresses - e.g. bc.def@mail..com - it will show the validation message but also the green (ok) validation inline the email input field
+  * UX possible issue in the way the address & phone number warning message is displayed (red message displayed below the input field while for the rest of the mandatory fields are having just * sign)
+  * country list is populated just with US
+  * `Assign an address alias for future reference.` is marked as mandatory input field but it isn't 
+* Filtering issues:
+  * filtering is not working all the time, especially when multiple filter criterias are used; also invalid results when color filtering is used by itself  - e.g. clicking on pink it will return products for which the selected color does not exist
+  * issues with Price range scroll filtering -> once you'll drag and drop it to the highest value, you'll not be able to reduce it down again
+* Cart issues:
+  * added products to the cart are not saved for user session -> e.g. while being logged in with account 1, add 1-2 items to cart and then login with the same account in another browser => no items are available in the cart within the 2nd browser
+  * Order complete message when `Bank wire` option is selected for payment, it contains hard-codded data that is not linked to the logged in account (info displayed after)
+* General issues:
+  * after using the application for a while I received lot of `508 - Resource Limit Is Reached errors`
+  * Add new wishlist -> user is able to click on Save wishlist without adding any name for it or any product; still, nothing happens but this is confusing for the actual user (save button should be disabled)
+
 Please note that while working on the framework, I saw some changes done on the DOM, which caused a failure for one of the scenarios; I fixed it right away, but though I tried to define locators as good as I could (without actually knowing the behavior of the application) - used with high priority IDs, then classname and lastly the xpath/css selectors to identify web elements
 
 Test results for the execution in browser stack can be seen while performing a login on [browser-stack](https://www.browserstack.com/) with user & password from `application.yaml` file.
