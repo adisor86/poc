@@ -77,6 +77,7 @@ Once the above pre-requisites are handled, in order to may run UI scenarios, all
 
 **Notes:** 
 * I also created a generic TestSuite class - **TestSuiteGrouping.java** - from where both UI & API tests can be triggered - as default there are enabled the SmokeUiSuite & APiTests.
+* For API tests, I added the dependency between tests on purpose, in the sense of just re-using the userId created via the post for the rest of the methods; please make sure you'll **execute all these tests in at the same time** and not one by one in isolation, otherwise you'll might have failures 
 * I know that in the assessment it was requested to have also the CI execution resolved, but I did not consider it for the moment, mainly due to time constraint; up until now I used Jenkins (both on premise and hyeprloop) in order to trigger the test execution; we may discuss about the approach I had in a follow-up session (if any); also, I know that there are plenty of other options to choose from, and most probably on a quick search, I would have found something to quickly integrate, but for the moment my time did not allow that (I already spent quite some time on developing this framework froms scratch :))
 
 ##C2.3 Steps to run Performance scenarios
@@ -130,7 +131,7 @@ Please note that while working on the framework, I saw some changes done on the 
 Test results for the execution in browser stack can be seen while performing a login on [browser-stack](https://www.browserstack.com/) with user & password from `application.yaml` file.
 
 ## D2. API automation results
-Out of the total 9 covered scenarios, I left 2 of them failing due to the wrong http status returned for the given scenario - createUserWhileUsingWrongEndpointWhichDoesNotSupportPostMethod & createUserWithInvalidBody
+Out of the total 10 covered scenarios, 2 of them are failing due to the wrong http status returned for the given scenario - createUserWhileUsingWrongEndpointWhichDoesNotSupportPostMethod & createUserWithInvalidBody
 
 ## D3. Performance test results
 In order to clearly identify the SPIKE impact, I adopted the following test strategy:

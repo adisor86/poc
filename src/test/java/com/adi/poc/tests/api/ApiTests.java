@@ -4,6 +4,7 @@ import com.adi.poc.api.RestApiClient;
 import com.adi.poc.api.dto.User;
 import io.restassured.mapper.ObjectMapperType;
 import io.restassured.response.Response;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,7 @@ public class ApiTests {
     private String userId;
     private Map<String, String> pathParams;
     private final String name = "Adi Test";
-    private final String email = "aditest@bitpanda.com";
+    private final String email = "aditest_".concat(RandomStringUtils.randomAlphabetic(5)).concat("@bitpanda.com");
     private final String gender = "male";
     private final String status = "active";
     private User user;
@@ -58,7 +59,7 @@ public class ApiTests {
     @Test
     @Order(1)
     public void createUserWithEmptyBody() {
-        System.out.println("Scenario to validate API user creation with invalid body.");
+        System.out.println("Scenario to validate API user creation with empty body.");
         String userBody = "";
         String expectedResult = "[{field=email, message=can't be blank}, {field=name, message=can't be blank}, {field=gender, message=can't be blank}, {field=status, message=can't be blank}]";
         //Note: normally test should fail due to 422 status code, but in the assertion for status code I passed it on purpose just to validate messages from response
@@ -77,6 +78,21 @@ public class ApiTests {
                 .status(status).build();
         //Note: i left test as failed due to the wrong implementation done at APi layer; for this situation, my expectation would be to receive 405 instead of 404 status code
         restApiClient.doPostRequestWithBody(405, apiUrl.concat("/").concat("11021"), userBody, bearer);
+    }
+
+    @Test
+    @Order(2)
+    public void createUserWithAlreadyUsedEmailAddress() {
+        System.out.println("Scenario to validate API user creation when using an email address for which already exists an user created");
+        String expectedResponseMessage = "[{field=email, message=has already been taken}]";
+        User userBody = User.builder()
+                .email(email)
+                .name(name)
+                .gender(gender)
+                .status(status).build();
+        //Ignored 422 status code instead of 400 in order to may validate the response message
+        Response response = restApiClient.doPostRequestWithBody(422, apiUrl, userBody, bearer);
+        Assertions.assertEquals(expectedResponseMessage, response.jsonPath().get().toString());
     }
 
     @Test
